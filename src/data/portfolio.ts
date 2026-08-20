@@ -5,7 +5,7 @@ export type Project = {
 
 export const profile = {
   name: 'Sher Singh', role: 'Jr. DevOps Engineer & Software Developer', company: 'Mirasys India Pvt. Ltd.',
-  email: 'singhsher.me298@gmail.com', phone: '+91 73105 30670',
+  email: 'singhsher.me298@gmail.com',
   intro: 'I build dependable systems at the intersection of infrastructure, monitoring, AI-powered video analytics, and frontend development.',
   social: [
     { label: 'LinkedIn', url: null }, { label: 'GitHub', url: null }, { label: 'LeetCode', url: null },

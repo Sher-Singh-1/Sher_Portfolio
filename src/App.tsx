@@ -635,14 +635,6 @@ function App() {
             <a className="email-link" href={`mailto:${profile.email}`}>
               {profile.email} <ArrowUpRight />
             </a>
-            <a
-              className="phone-link"
-              href={`https://wa.me/${profile.phone.replace(/\D/g, "")}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              WhatsApp: {profile.phone} <ArrowUpRight />
-            </a>
           </motion.div>
           <motion.form {...reveal} onSubmit={onSubmit} noValidate>
             <label>
