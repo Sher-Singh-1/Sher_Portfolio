@@ -3,6 +3,7 @@ import {
   AnimatePresence,
   motion,
   useInView,
+  useMotionValue,
   useScroll,
   useSpring,
   useTransform,
@@ -36,15 +37,22 @@ const reveal = {
   transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
 } as const;
 const filters = ["All", "DevOps", "AI / ML", "Monitoring"] as const;
+const marqueeItems = Array.from(
+  new Set(skillGroups.flatMap((group) => group.items)),
+);
 
 function MagneticLink({
   href,
   children,
   className = "",
+  target,
+  rel,
 }: {
   href: string;
   children: React.ReactNode;
   className?: string;
+  target?: string;
+  rel?: string;
 }) {
   const ref = useRef<HTMLAnchorElement>(null);
   const onMove = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -59,6 +67,8 @@ function MagneticLink({
     <a
       ref={ref}
       href={href}
+      target={target}
+      rel={rel}
       onMouseMove={onMove}
       onMouseLeave={() => {
         if (ref.current) ref.current.style.transform = "";
@@ -67,6 +77,110 @@ function MagneticLink({
     >
       {children}
     </a>
+  );
+}
+
+function CursorGlow() {
+  const x = useMotionValue(-400);
+  const y = useMotionValue(-400);
+  const springX = useSpring(x, { stiffness: 220, damping: 32, mass: 0.4 });
+  const springY = useSpring(y, { stiffness: 220, damping: 32, mass: 0.4 });
+  useEffect(() => {
+    const move = (event: PointerEvent) => {
+      x.set(event.clientX);
+      y.set(event.clientY);
+    };
+    window.addEventListener("pointermove", move);
+    return () => window.removeEventListener("pointermove", move);
+  }, [x, y]);
+  return (
+    <motion.div
+      className="cursor-glow"
+      style={{ left: springX, top: springY }}
+      aria-hidden="true"
+    />
+  );
+}
+
+function TechMarquee() {
+  return (
+    <div className="marquee" aria-hidden="true">
+      <div className="marquee-track">
+        {[...marqueeItems, ...marqueeItems].map((item, index) => (
+          <span key={`${item}-${index}`}>{item}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ProjectCard({
+  project,
+  onSelect,
+}: {
+  project: Project;
+  onSelect: () => void;
+}) {
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+  const springRotateX = useSpring(rotateX, { stiffness: 220, damping: 20 });
+  const springRotateY = useSpring(rotateY, { stiffness: 220, damping: 20 });
+  const onMove = (event: React.MouseEvent<HTMLElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const px = (event.clientX - rect.left) / rect.width - 0.5;
+    const py = (event.clientY - rect.top) / rect.height - 0.5;
+    rotateY.set(px * 14);
+    rotateX.set(py * -14);
+  };
+  const onLeave = () => {
+    rotateX.set(0);
+    rotateY.set(0);
+  };
+  return (
+    <motion.article
+      layout
+      initial={{ opacity: 0, scale: 0.97 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.97 }}
+      style={{
+        rotateX: springRotateX,
+        rotateY: springRotateY,
+        transformPerspective: 800,
+      }}
+      className={`project-card ${project.accent}`}
+      onClick={onSelect}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      tabIndex={0}
+      role="button"
+      aria-label={`Read ${project.title} case study`}
+      onKeyDown={(event) => event.key === "Enter" && onSelect()}
+    >
+      <div className="project-art">
+        <span>{project.category}</span>
+        <b>
+          {project.id === "sheros"
+            ? "S"
+            : project.id === "fire"
+              ? "AI"
+              : "VMS"}
+        </b>
+        <i />
+      </div>
+      <div className="project-content">
+        <p>{project.year}</p>
+        <h3>{project.title}</h3>
+        <p className="project-summary">{project.summary}</p>
+        <div className="tags">
+          {project.technologies.slice(0, 3).map((tech) => (
+            <span key={tech}>{tech}</span>
+          ))}
+        </div>
+        <button>
+          View case study <ChevronRight size={16} />
+        </button>
+      </div>
+    </motion.article>
   );
 }
 
@@ -197,6 +311,7 @@ function App() {
   };
   return (
     <>
+      <CursorGlow />
       <motion.div className="scroll-progress" style={{ scaleX: progress }} />
       <header className="site-header">
         <nav className="nav wrap" aria-label="Primary navigation">
@@ -277,13 +392,15 @@ function App() {
             </motion.div>
             <div className="social-row">
               {profile.social.map((social) => (
-                <span
-                  className="pending-link"
-                  title="Profile URL to be added"
+                <MagneticLink
+                  href={social.url}
+                  className="social-link"
+                  target="_blank"
+                  rel="noreferrer noopener"
                   key={social.label}
                 >
                   {social.label} <span>↗</span>
-                </span>
+                </MagneticLink>
               ))}
             </div>
           </div>
@@ -317,6 +434,7 @@ function App() {
             <div className="grid-planes" />
           </motion.div>
         </section>
+        <TechMarquee />
         <section id="about" className="section wrap about">
           <motion.div {...reveal} className="profile-frame">
             <img
@@ -459,46 +577,11 @@ function App() {
             </div>
             <motion.div layout className="project-grid">
               {visibleProjects.map((project) => (
-                <motion.article
-                  layout
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.97 }}
-                  className={`project-card ${project.accent}`}
+                <ProjectCard
+                  project={project}
+                  onSelect={() => setSelected(project)}
                   key={project.id}
-                  onClick={() => setSelected(project)}
-                  tabIndex={0}
-                  role="button"
-                  aria-label={`Read ${project.title} case study`}
-                  onKeyDown={(event) =>
-                    event.key === "Enter" && setSelected(project)
-                  }
-                >
-                  <div className="project-art">
-                    <span>{project.category}</span>
-                    <b>
-                      {project.id === "sheros"
-                        ? "S"
-                        : project.id === "fire"
-                          ? "AI"
-                          : "VMS"}
-                    </b>
-                    <i />
-                  </div>
-                  <div className="project-content">
-                    <p>{project.year}</p>
-                    <h3>{project.title}</h3>
-                    <p className="project-summary">{project.summary}</p>
-                    <div className="tags">
-                      {project.technologies.slice(0, 3).map((tech) => (
-                        <span key={tech}>{tech}</span>
-                      ))}
-                    </div>
-                    <button>
-                      View case study <ChevronRight size={16} />
-                    </button>
-                  </div>
-                </motion.article>
+                />
               ))}
             </motion.div>
           </div>

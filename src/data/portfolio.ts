@@ -8,7 +8,9 @@ export const profile = {
   email: 'singhsher.me298@gmail.com',
   intro: 'I build dependable systems at the intersection of infrastructure, monitoring, AI-powered video analytics, and frontend development.',
   social: [
-    { label: 'LinkedIn', url: null }, { label: 'GitHub', url: null }, { label: 'LeetCode', url: null },
+    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/sher-singh-723203244' },
+    { label: 'GitHub', url: 'https://github.com/sher-singh-1' },
+    { label: 'LeetCode', url: 'https://leetcode.com/u/Sher_1122/' },
   ],
 }
 
