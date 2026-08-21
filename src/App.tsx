@@ -13,6 +13,7 @@ import {
   ChevronRight,
   Download,
   ExternalLink,
+  Mail,
   Menu,
   Play,
   X,
@@ -49,6 +50,20 @@ const filters = ["All", "DevOps", "AI / ML", "Monitoring"] as const;
 const marqueeItems = Array.from(
   new Set(skillGroups.flatMap((group) => group.items)),
 );
+
+function LinkedInMark({ size = 18 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.11 20.45H3.56V9h3.55z" />
+    </svg>
+  );
+}
 
 function MagneticLink({
   href,
@@ -301,6 +316,10 @@ function App() {
   const [filter, setFilter] = useState<(typeof filters)[number]>("All");
   const [selected, setSelected] = useState<Project | null>(null);
   const [formMessage, setFormMessage] = useState("");
+  const [linkedInNote, setLinkedInNote] = useState("");
+  const linkedInUrl = profile.social.find(
+    (social) => social.label === "LinkedIn",
+  )?.url;
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 25 });
   const heroY = useTransform(scrollYProgress, [0, 0.22], [0, -86]);
@@ -326,6 +345,21 @@ function App() {
     }
     window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(String(form.get("subject") || "Portfolio enquiry"))}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
     setFormMessage("Opening your email application…");
+  };
+  const onLinkedInConnect = async () => {
+    if (!linkedInUrl) return;
+    const draft = `Hi ${profile.name.split(" ")[0]}, I came across your portfolio site and wanted to connect!`;
+    try {
+      await navigator.clipboard.writeText(draft);
+      setLinkedInNote(
+        "Opening LinkedIn — a friendly intro message has been copied to your clipboard, just paste it into the message box.",
+      );
+    } catch {
+      setLinkedInNote(
+        "Opening LinkedIn — feel free to say hello! (Your browser blocked auto-copying a suggested message.)",
+      );
+    }
+    window.open(linkedInUrl, "_blank", "noopener,noreferrer");
   };
   return (
     <>
@@ -777,9 +811,42 @@ function App() {
               Have a technical opportunity, infrastructure challenge, or
               collaboration in mind? I’d be glad to hear about it.
             </p>
-            <a className="email-link" href={`mailto:${profile.email}`}>
-              {profile.email} <ArrowUpRight />
-            </a>
+            <div className="contact-options">
+              <a
+                className="contact-option"
+                href={`mailto:${profile.email}`}
+              >
+                <span className="contact-option-icon">
+                  <Mail size={17} />
+                </span>
+                <span className="contact-option-copy">
+                  <b>Email</b>
+                  <p>{profile.email}</p>
+                </span>
+                <ArrowUpRight size={16} />
+              </a>
+              {linkedInUrl && (
+                <button
+                  type="button"
+                  className="contact-option"
+                  onClick={onLinkedInConnect}
+                >
+                  <span className="contact-option-icon">
+                    <LinkedInMark size={17} />
+                  </span>
+                  <span className="contact-option-copy">
+                    <b>LinkedIn</b>
+                    <p>Send me a message</p>
+                  </span>
+                  <ArrowUpRight size={16} />
+                </button>
+              )}
+            </div>
+            {linkedInNote && (
+              <p className="form-message" role="status">
+                {linkedInNote}
+              </p>
+            )}
           </motion.div>
           <motion.form {...reveal} onSubmit={onSubmit} noValidate>
             <label>
