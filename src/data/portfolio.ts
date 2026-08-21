@@ -1,6 +1,14 @@
+import gearIcon from '../assets/icons3d/gear.png'
+import robotIcon from '../assets/icons3d/robot.png'
+import laptopIcon from '../assets/icons3d/laptop.png'
+import desktopIcon from '../assets/icons3d/desktop_computer.png'
+import barChartIcon from '../assets/icons3d/bar_chart.png'
+import fireIcon from '../assets/icons3d/fire.png'
+import satelliteIcon from '../assets/icons3d/satellite_antenna.png'
+
 export type Project = {
   id: string; title: string; category: 'DevOps' | 'AI / ML' | 'Monitoring'; year: string; summary: string;
-  problem: string; solution: string; contribution: string; technologies: string[]; features: string[]; accent: string;
+  problem: string; solution: string; contribution: string; technologies: string[]; features: string[]; accent: string; icon: string;
 }
 
 export const profile = {
@@ -20,16 +28,16 @@ export const experiences = [
 ]
 
 export const projects: Project[] = [
-  { id: 'sheros', title: 'SHEROS', category: 'Monitoring', year: '2025', accent: 'lime', summary: 'Cross-platform system health monitoring with a local dashboard and SQLite-backed history.', problem: 'System health signals can be hard to track consistently across Windows and Linux machines.', solution: 'A local monitoring application that exposes health metrics through REST APIs and presents them in a responsive dashboard.', contribution: 'Built the cross-platform monitoring workflow, dashboard, local storage, threshold alerts, and environment setup automation.', technologies: ['Python', 'psutil', 'SQLite', 'REST API', 'Shell', 'Windows', 'Linux'], features: ['CPU, memory, disk, network, uptime & process monitoring', 'SQLite storage with configurable retention', 'Threshold-based alerts', 'Automated Windows & Linux setup'] },
-  { id: 'fire', title: 'Fire Detection System', category: 'AI / ML', year: '2025', accent: 'orange', summary: 'AI-powered fire-event detection for surveillance environments with operational monitoring.', problem: 'Surveillance workflows need dependable detection and visibility into system health.', solution: 'A custom YOLO model detects fire events while Grafana and Prometheus surface operational signals.', contribution: 'Trained custom YOLO detection models and helped integrate monitoring tools into the VMS environment.', technologies: ['Python', 'YOLOv5', 'YOLOE', 'Docker', 'Grafana', 'Prometheus', 'Netdata'], features: ['Real-time fire event detection', 'Custom AI model training', 'Machine health dashboard', 'VMS monitoring integration'] },
-  { id: 'vms', title: 'VMS & Video Analytics', category: 'DevOps', year: '2025 — Present', accent: 'violet', summary: 'Deployment, integration, production support, and troubleshooting for enterprise video systems.', problem: 'Enterprise VMS and video analytics projects need reliable deployment and fast production support.', solution: 'Hands-on Linux, Docker, networking, API, and observability practices across project environments.', contribution: 'Supported deployment, integration, production issue resolution, monitoring, and frontend contributions.', technologies: ['Linux', 'Docker', 'REST APIs', 'Networking', 'Grafana', 'Prometheus'], features: ['Server deployment', 'Production troubleshooting', 'Infrastructure observability', 'Video analytics integration'] },
+  { id: 'sheros', title: 'SHEROS', category: 'Monitoring', year: '2025', accent: 'lime', icon: barChartIcon, summary: 'Cross-platform system health monitoring with a local dashboard and SQLite-backed history.', problem: 'System health signals can be hard to track consistently across Windows and Linux machines.', solution: 'A local monitoring application that exposes health metrics through REST APIs and presents them in a responsive dashboard.', contribution: 'Built the cross-platform monitoring workflow, dashboard, local storage, threshold alerts, and environment setup automation.', technologies: ['Python', 'psutil', 'SQLite', 'REST API', 'Shell', 'Windows', 'Linux'], features: ['CPU, memory, disk, network, uptime & process monitoring', 'SQLite storage with configurable retention', 'Threshold-based alerts', 'Automated Windows & Linux setup'] },
+  { id: 'fire', title: 'Fire Detection System', category: 'AI / ML', year: '2025', accent: 'orange', icon: fireIcon, summary: 'AI-powered fire-event detection for surveillance environments with operational monitoring.', problem: 'Surveillance workflows need dependable detection and visibility into system health.', solution: 'A custom YOLO model detects fire events while Grafana and Prometheus surface operational signals.', contribution: 'Trained custom YOLO detection models and helped integrate monitoring tools into the VMS environment.', technologies: ['Python', 'YOLOv5', 'YOLOE', 'Docker', 'Grafana', 'Prometheus', 'Netdata'], features: ['Real-time fire event detection', 'Custom AI model training', 'Machine health dashboard', 'VMS monitoring integration'] },
+  { id: 'vms', title: 'VMS & Video Analytics', category: 'DevOps', year: '2025 — Present', accent: 'violet', icon: satelliteIcon, summary: 'Deployment, integration, production support, and troubleshooting for enterprise video systems.', problem: 'Enterprise VMS and video analytics projects need reliable deployment and fast production support.', solution: 'Hands-on Linux, Docker, networking, API, and observability practices across project environments.', contribution: 'Supported deployment, integration, production issue resolution, monitoring, and frontend contributions.', technologies: ['Linux', 'Docker', 'REST APIs', 'Networking', 'Grafana', 'Prometheus'], features: ['Server deployment', 'Production troubleshooting', 'Infrastructure observability', 'Video analytics integration'] },
 ]
 
 export const skillGroups = [
-  { name: 'Programming', items: ['Python', 'Java', 'JavaScript', 'SQL', 'Shell Scripting'] },
-  { name: 'Development', items: ['React.js', 'Node.js', 'HTML5', 'CSS3', 'REST APIs'] },
-  { name: 'DevOps & Monitoring', items: ['Linux', 'Docker', 'Grafana', 'Prometheus', 'Netdata', 'Server Deployment', 'Automation'] },
-  { name: 'AI & Tools', items: ['YOLOv5', 'YOLOE', 'AI Model Training', 'SQLite', 'Git', 'GitHub', 'Figma'] },
+  { name: 'Programming', icon: laptopIcon, items: ['Python', 'Java', 'JavaScript', 'SQL', 'Shell Scripting'] },
+  { name: 'Development', icon: desktopIcon, items: ['React.js', 'Node.js', 'HTML5', 'CSS3', 'REST APIs'] },
+  { name: 'DevOps & Monitoring', icon: gearIcon, items: ['Linux', 'Docker', 'Grafana', 'Prometheus', 'Netdata', 'Server Deployment', 'Automation'] },
+  { name: 'AI & Tools', icon: robotIcon, items: ['YOLOv5', 'YOLOE', 'AI Model Training', 'SQLite', 'Git', 'GitHub', 'Figma'] },
 ]
 
 export const education = [

@@ -18,6 +18,14 @@ import {
   X,
 } from "lucide-react";
 import profileImage from "../data/Profile.jpeg";
+import gearIcon from "./assets/icons3d/gear.png";
+import barChartIcon from "./assets/icons3d/bar_chart.png";
+import rocketIcon from "./assets/icons3d/rocket.png";
+import sparklesIcon from "./assets/icons3d/sparkles.png";
+import packageIcon from "./assets/icons3d/package.png";
+import graduationCapIcon from "./assets/icons3d/graduation_cap.png";
+import trophyIcon from "./assets/icons3d/trophy.png";
+import envelopeIcon from "./assets/icons3d/envelope.png";
 import {
   achievements,
   education,
@@ -81,24 +89,28 @@ function MagneticLink({
   );
 }
 
-function CursorGlow() {
-  const x = useMotionValue(-400);
-  const y = useMotionValue(-400);
-  const springX = useSpring(x, { stiffness: 220, damping: 32, mass: 0.4 });
-  const springY = useSpring(y, { stiffness: 220, damping: 32, mass: 0.4 });
-  useEffect(() => {
-    const move = (event: PointerEvent) => {
-      x.set(event.clientX);
-      y.set(event.clientY);
-    };
-    window.addEventListener("pointermove", move);
-    return () => window.removeEventListener("pointermove", move);
-  }, [x, y]);
+function FloatIcon({
+  src,
+  alt,
+  className = "",
+  duration = 4.5,
+  delay = 0,
+  distance = 12,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  duration?: number;
+  delay?: number;
+  distance?: number;
+}) {
   return (
-    <motion.div
-      className="cursor-glow"
-      style={{ left: springX, top: springY }}
-      aria-hidden="true"
+    <motion.img
+      src={src}
+      alt={alt}
+      className={`icon-3d ${className}`}
+      animate={{ y: [0, -distance, 0], rotate: [0, 3, 0, -3, 0] }}
+      transition={{ duration, delay, repeat: Infinity, ease: "easeInOut" }}
     />
   );
 }
@@ -166,7 +178,12 @@ function ProjectCard({
               ? "AI"
               : "VMS"}
         </b>
-        <i />
+        <FloatIcon
+          src={project.icon}
+          alt=""
+          className="project-icon"
+          duration={5}
+        />
       </div>
       <div className="project-content">
         <p>{project.year}</p>
@@ -312,7 +329,6 @@ function App() {
   };
   return (
     <>
-      <CursorGlow />
       <motion.div className="scroll-progress" style={{ scaleX: progress }} />
       <header className="site-header">
         <nav className="nav wrap" aria-label="Primary navigation">
@@ -423,15 +439,32 @@ function App() {
               </span>
             </div>
             <div className="code-card card-one">
+              <img src={barChartIcon} alt="" className="icon-3d card-icon" />
               <span>01</span>
               <b>OBSERVE</b>
               <i>Grafana · Prometheus</i>
             </div>
             <div className="code-card card-two">
+              <img src={gearIcon} alt="" className="icon-3d card-icon" />
               <span>02</span>
               <b>AUTOMATE</b>
               <i>Python · Shell</i>
             </div>
+            <FloatIcon
+              src={rocketIcon}
+              alt=""
+              className="hero-float-icon hero-float-rocket"
+              duration={4}
+              distance={16}
+            />
+            <FloatIcon
+              src={sparklesIcon}
+              alt=""
+              className="hero-float-icon hero-float-sparkles"
+              duration={3.4}
+              delay={0.6}
+              distance={10}
+            />
             <div className="grid-planes" />
           </motion.div>
         </section>
@@ -539,6 +572,7 @@ function App() {
                 key={group.name}
               >
                 <span className="skill-index">0{index + 1}</span>
+                <img src={group.icon} alt="" className="icon-3d skill-icon" />
                 <h3>{group.name}</h3>
                 <div>
                   {group.items.map((item) => (
@@ -593,6 +627,11 @@ function App() {
               <div>
                 <p className="overline">05 · Featured case study</p>
                 <h2>
+                  <img
+                    src={barChartIcon}
+                    alt=""
+                    className="icon-3d heading-icon"
+                  />
                   SHEROS<span>™</span>
                 </h2>
                 <p>
@@ -640,6 +679,11 @@ function App() {
           <motion.div {...reveal}>
             <p className="overline">06 · Education & recognition</p>
             <h2>
+              <img
+                src={graduationCapIcon}
+                alt=""
+                className="icon-3d heading-icon"
+              />
               Always
               <br />
               <em>learning.</em>
@@ -660,7 +704,14 @@ function App() {
               ))}
             </div>
             <div className="achievements">
-              <p className="overline">Certifications & achievements</p>
+              <p className="overline">
+                <img
+                  src={trophyIcon}
+                  alt=""
+                  className="icon-3d achievements-icon"
+                />
+                Certifications & achievements
+              </p>
               {achievements.map((achievement) => (
                 <motion.p {...reveal} key={achievement}>
                   ✦ {achievement}
@@ -674,6 +725,11 @@ function App() {
             <div>
               <p className="overline">07 · Resume</p>
               <h2>
+                <img
+                  src={packageIcon}
+                  alt=""
+                  className="icon-3d heading-icon"
+                />
                 The details,
                 <br />
                 <em>all together.</em>
@@ -708,6 +764,11 @@ function App() {
           <motion.div {...reveal}>
             <p className="overline">08 · Contact</p>
             <h2>
+              <img
+                src={envelopeIcon}
+                alt=""
+                className="icon-3d heading-icon"
+              />
               Let’s build
               <br />
               something <em>dependable.</em>
