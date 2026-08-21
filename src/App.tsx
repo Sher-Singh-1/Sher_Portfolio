@@ -30,6 +30,7 @@ import {
 import "./App.css";
 import "./upgrade.css";
 
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 const reveal = {
   initial: { opacity: 0, y: 22 },
   whileInView: { opacity: 1, y: 0 },
@@ -199,7 +200,7 @@ function SherosVideo() {
           preload="metadata"
           aria-label="SherOS product demonstration"
         >
-          <source src="/media/sheros-demo.webm" type="video/webm" />
+          <source src={withBase("media/sheros-demo.webm")} type="video/webm" />
           Your browser does not support the SherOS demonstration video.
         </video>
       ) : (
@@ -344,7 +345,7 @@ function App() {
           </div>
           <a
             className="resume-button"
-            href="/resume/sher-singh-resume.pdf"
+            href={withBase("resume/sher-singh-resume.pdf")}
             target="_blank"
             rel="noreferrer"
           >
@@ -686,7 +687,7 @@ function App() {
               <div className="hero-actions">
                 <a
                   className="button primary dark"
-                  href="/resume/sher-singh-resume.pdf"
+                  href={withBase("resume/sher-singh-resume.pdf")}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -694,7 +695,7 @@ function App() {
                 </a>
                 <a
                   className="button ghost dark"
-                  href="/resume/sher-singh-resume.pdf"
+                  href={withBase("resume/sher-singh-resume.pdf")}
                   download
                 >
                   Download <Download />
