@@ -1,4 +1,28 @@
-/* Refined visual direction: midnight navy, ice blue, and restrained copper. */
-:root { --bg:#07111f; --panel:#0d1a2b; --panel2:#13243a; --line:rgba(203,224,247,.15); --text:#f0f6ff; --muted:#a4b5c8; --lime:#67c8ff; --violet:#88a7ff; --orange:#e7a47a; }
-body:before { background:radial-gradient(circle at 82% 8%,rgba(79,139,255,.18),transparent 27%),radial-gradient(circle at 10% 42%,rgba(231,164,122,.075),transparent 26%); }.button.primary,.filter-bar button.active,.filter-bar button:hover { color:#07111f; background:#67c8ff; border-color:#67c8ff; }.button.primary:hover { box-shadow:0 15px 35px rgba(103,200,255,.2); }.status-dot { box-shadow:0 0 0 4px rgba(103,200,255,.13); }.orbit-b { border-color:rgba(103,200,255,.55); }.core { color:#07111f; box-shadow:0 0 78px rgba(103,200,255,.25); }.skill-card:hover { border-color:rgba(103,200,255,.65); }.lime .project-art { background:#8dd6f7; color:#07111f; }.orange .project-art { background:#e7a47a; color:#28160e; }.violet .project-art { background:#93a8dc; color:#0e1930; }
-.sheros-section { background:#0a1930; color:#f0f6ff; position:relative; overflow:hidden; }.sheros-section:before { content:''; position:absolute; inset:0; pointer-events:none; opacity:.26; background-image:linear-gradient(rgba(103,200,255,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(103,200,255,.14) 1px,transparent 1px); background-size:56px 56px; mask-image:radial-gradient(circle at 70% 30%,black,transparent 68%); }.sheros-section .wrap { position:relative; }.sheros-section .overline,.sheros-section h2 { color:#8ed9ff; }.case-link { color:#f0f6ff; border-color:#8ed9ff; }.sheros-video { border-color:rgba(103,200,255,.4); box-shadow:0 25px 70px rgba(0,0,0,.3); }.monitor-strip { margin-top:18px; display:grid; grid-template-columns:150px 1fr 150px; gap:1px; background:rgba(103,200,255,.25); border:1px solid rgba(103,200,255,.25); }.monitor-metric,.monitor-chart { background:#0d213c; padding:14px 16px; }.monitor-metric { display:flex; flex-direction:column; justify-content:center; gap:5px; }.monitor-metric span,.monitor-chart>span { font:9px var(--mono); letter-spacing:.09em; color:#9bb6d4; }.monitor-metric b { font:21px var(--mono); color:#8ed9ff; letter-spacing:-.07em; }.monitor-metric i { font:9px var(--mono); color:#e7a47a; font-style:normal; }.monitor-chart svg { display:block; height:65px; width:100%; margin-top:6px; }.chart-grid { stroke:rgba(155,182,212,.18); stroke-width:1; }.chart-line { fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:560; animation:draw-line 3.5s ease-in-out infinite alternate; }.chart-line-one { stroke:#78d2ff; }.chart-line-two { stroke:#e7a47a; animation-delay:.45s; }.case-grid>div { background:rgba(13,33,60,.65); padding:16px; border-top:1px solid rgba(103,200,255,.25); }.case-grid>div .overline { color:#e7a47a; } @keyframes draw-line { from { stroke-dashoffset:560; opacity:.25; } to { stroke-dashoffset:0; opacity:1; } } @media(max-width:850px){.monitor-strip{grid-template-columns:1fr}.monitor-chart{order:-1}}@media(prefers-reduced-motion:reduce){.chart-line{animation:none}}
+/* Premium light theme: warm ivory + antique gold. Dark theme lives in App.css. */
+:root[data-theme='light'] { --bg:#faf6ec; --panel:#ffffff; --panel2:#f4ecd8; --line:rgba(120,88,20,.16); --line-strong:rgba(120,88,20,.32); --text:#231c0f; --text-dim:#4a4130; --muted:#6f6350; --gold:#a8790f; --gold-2:#c99a2e; --copper:#9c5a28; --bronze:#7c5e28; --header-fade:linear-gradient(to bottom,rgba(250,246,236,.94),rgba(250,246,236,.55),transparent); }
+:root[data-theme='light'] body:before { background:radial-gradient(circle at 85% 7%,rgba(168,121,15,.08),transparent 25%),radial-gradient(circle at 10% 40%,rgba(140,90,30,.05),transparent 25%); }
+:root[data-theme='light'] .code-card { box-shadow:0 20px 45px rgba(80,60,10,.14); }
+:root[data-theme='light'] .modal-backdrop { background:rgba(35,28,15,.55); }
+
+/* SHEROS case study: fixed signature gold band, same in both themes */
+.sheros-section { position:relative; overflow:hidden; }
+.sheros-section:before { content:''; position:absolute; inset:0; pointer-events:none; opacity:.3; background-image:linear-gradient(rgba(22,16,9,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(22,16,9,.16) 1px,transparent 1px); background-size:56px 56px; mask-image:radial-gradient(circle at 70% 30%,black,transparent 68%); }
+.sheros-section .wrap { position:relative; }
+.sheros-section .overline, .sheros-section h2 { color:#161009; }
+.sheros-video { border:1px solid rgba(22,16,9,.35); box-shadow:0 25px 70px rgba(0,0,0,.35); }
+.monitor-strip { margin-top:18px; display:grid; grid-template-columns:150px 1fr 150px; gap:1px; background:rgba(22,16,9,.22); border:1px solid rgba(22,16,9,.22); }
+.monitor-metric, .monitor-chart { background:rgba(255,248,228,.55); padding:14px 16px; }
+.monitor-metric { display:flex; flex-direction:column; justify-content:center; gap:5px; }
+.monitor-metric span, .monitor-chart>span { font:9px var(--mono); letter-spacing:.09em; color:rgba(22,16,9,.62); }
+.monitor-metric b { font:21px var(--mono); color:#161009; letter-spacing:-.07em; }
+.monitor-metric i { font:9px var(--mono); color:#6b4a12; font-style:normal; }
+.monitor-chart svg { display:block; height:65px; width:100%; margin-top:6px; }
+.chart-grid { stroke:rgba(22,16,9,.16); stroke-width:1; }
+.chart-line { fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:560; animation:draw-line 3.5s ease-in-out infinite alternate; }
+.chart-line-one { stroke:#161009; }
+.chart-line-two { stroke:#8a5a22; animation-delay:.45s; }
+.case-grid>div { background:rgba(22,16,9,.07); padding:16px; border-top:1px solid rgba(22,16,9,.25); }
+.case-grid>div .overline { color:#6b4a12; }
+@keyframes draw-line { from { stroke-dashoffset:560; opacity:.25; } to { stroke-dashoffset:0; opacity:1; } }
+@media(max-width:850px){.monitor-strip{grid-template-columns:1fr}.monitor-chart{order:-1}}
+@media(prefers-reduced-motion:reduce){.chart-line{animation:none}}

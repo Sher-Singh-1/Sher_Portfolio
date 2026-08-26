@@ -15,7 +15,9 @@ import {
   ExternalLink,
   Mail,
   Menu,
+  Moon,
   Play,
+  Sun,
   X,
 } from "lucide-react";
 import profileImage from "../data/Profile.jpeg";
@@ -47,6 +49,14 @@ const reveal = {
   transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
 } as const;
 const filters = ["All", "DevOps", "AI / ML", "Monitoring"] as const;
+type Theme = "light" | "dark";
+const getInitialTheme = (): Theme => {
+  if (typeof document !== "undefined") {
+    const attr = document.documentElement.getAttribute("data-theme");
+    if (attr === "light" || attr === "dark") return attr;
+  }
+  return "dark";
+};
 const marqueeItems = Array.from(
   new Set(skillGroups.flatMap((group) => group.items)),
 );
@@ -313,6 +323,7 @@ function ProjectModal({
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
   const [filter, setFilter] = useState<(typeof filters)[number]>("All");
   const [selected, setSelected] = useState<Project | null>(null);
   const [formMessage, setFormMessage] = useState("");
@@ -333,6 +344,16 @@ function App() {
     window.addEventListener("keydown", escape);
     return () => window.removeEventListener("keydown", escape);
   }, []);
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    try {
+      localStorage.setItem("theme", theme);
+    } catch {
+      // ignore storage errors (e.g. private browsing)
+    }
+  }, [theme]);
+  const toggleTheme = () =>
+    setTheme((current) => (current === "dark" ? "light" : "dark"));
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
@@ -393,6 +414,14 @@ function App() {
               Contact
             </a>
           </div>
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          >
+            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
           <a
             className="resume-button"
             href={withBase("resume/sher-singh-resume.pdf")}
