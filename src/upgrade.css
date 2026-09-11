@@ -4,6 +4,8 @@
 :root[data-theme='light'] .code-card { box-shadow:0 20px 45px rgba(80,60,10,.14); }
 :root[data-theme='light'] .modal-backdrop { background:rgba(35,28,15,.55); }
 :root[data-theme='light'] .pj-note { background:rgba(35,28,15,.03); }
+.modal-video { margin: 22px 0; }
+.modal-video .sheros-video { border-radius: 6px; }
 
 /* SHEROS case study: fixed signature gold band, same in both themes */
 .sheros-section { position:relative; overflow:hidden; }

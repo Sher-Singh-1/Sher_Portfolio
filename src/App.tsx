@@ -388,6 +388,11 @@ function ProjectModal({
             )}
           </div>
         )}
+        {project.id === "sheros" && (
+          <div className="modal-video">
+            <SherosVideo />
+          </div>
+        )}
         <div className="detail-grid">
           <div>
             <h3>Problem</h3>
