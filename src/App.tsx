@@ -10,13 +10,9 @@ import {
 import {
   AlertTriangle,
   ArrowUpRight,
-  Bot,
   Box,
-  BrainCircuit,
   ChevronRight,
-  Code2,
   Crown,
-  Database,
   Download,
   ExternalLink,
   LayoutDashboard,
@@ -24,37 +20,12 @@ import {
   Menu,
   Moon,
   Play,
-  ScanEye,
-  Server,
   Sun,
-  Webhook,
-  Workflow,
   X,
-  type LucideIcon,
 } from "lucide-react";
-import type { IconType } from "react-icons";
-import { FaAws } from "react-icons/fa6";
-import { DiJava } from "react-icons/di";
-import {
-  SiCss,
-  SiDocker,
-  SiFigma,
-  SiGit,
-  SiGithub,
-  SiGnubash,
-  SiGrafana,
-  SiHtml5,
-  SiJavascript,
-  SiLinux,
-  SiNetdata,
-  SiNodedotjs,
-  SiPrometheus,
-  SiPython,
-  SiReact,
-  SiSqlite,
-} from "react-icons/si";
 import { MagneticLink } from "./components/MagneticLink";
 import { Hero } from "./components/hero/Hero";
+import { SkillsSection } from "./components/skills/SkillsSection";
 import profileImage from "../data/Profile.jpeg";
 import barChartIcon from "./assets/icons3d/bar_chart.png";
 import packageIcon from "./assets/icons3d/package.png";
@@ -99,34 +70,6 @@ const getInitialTheme = (): Theme => {
 const marqueeItems = Array.from(
   new Set(skillGroups.flatMap((group) => group.items)),
 );
-const skillIconMap: Record<string, LucideIcon | IconType> = {
-  Python: SiPython,
-  Java: DiJava,
-  JavaScript: SiJavascript,
-  SQL: Database,
-  "Shell Scripting": SiGnubash,
-  "React.js": SiReact,
-  "Node.js": SiNodedotjs,
-  HTML5: SiHtml5,
-  CSS3: SiCss,
-  "REST APIs": Webhook,
-  Linux: SiLinux,
-  Docker: SiDocker,
-  AWS: FaAws,
-  "CI/CD Pipeline": Workflow,
-  Grafana: SiGrafana,
-  Prometheus: SiPrometheus,
-  Netdata: SiNetdata,
-  "Server Deployment": Server,
-  Automation: Bot,
-  YOLOv5: ScanEye,
-  YOLOE: ScanEye,
-  "AI Model Training": BrainCircuit,
-  SQLite: SiSqlite,
-  Git: SiGit,
-  GitHub: SiGithub,
-  Figma: SiFigma,
-};
 function LinkedInMark({ size = 18 }: { size?: number }) {
   return (
     <svg
@@ -672,47 +615,7 @@ function App() {
             </div>
           </div>
         </section>
-        <section id="skills" className="section wrap">
-          <motion.div {...reveal} className="section-heading split">
-            <div>
-              <p className="overline">03 · Technology ecosystem</p>
-              <h2>
-                Tools for
-                <br />
-                <em>real systems.</em>
-              </h2>
-            </div>
-            <p>
-              I select technology based on the problem: from infrastructure and
-              monitoring to frontend interfaces and computer vision.
-            </p>
-          </motion.div>
-          <div className="skills-grid">
-            {skillGroups.map((group, index) => (
-              <motion.article
-                {...reveal}
-                transition={{ duration: 0.5, delay: index * 0.06 }}
-                className="skill-card"
-                key={group.name}
-              >
-                <span className="skill-index">0{index + 1}</span>
-                <img src={group.icon} alt="" className="icon-3d skill-icon" />
-                <h3>{group.name}</h3>
-                <div className="skill-chips">
-                  {group.items.map((item) => {
-                    const Icon = skillIconMap[item] ?? Code2;
-                    return (
-                      <span className="skill-chip" key={item}>
-                        <Icon size={13} />
-                        {item}
-                      </span>
-                    );
-                  })}
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </section>
+        <SkillsSection />
         <section id="projects" className="pj-section">
           <div className="wrap">
             <div className="pj-top">

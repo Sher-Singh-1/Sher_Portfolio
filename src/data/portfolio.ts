@@ -1,7 +1,4 @@
-import gearIcon from '../assets/icons3d/gear.png'
 import robotIcon from '../assets/icons3d/robot.png'
-import laptopIcon from '../assets/icons3d/laptop.png'
-import desktopIcon from '../assets/icons3d/desktop_computer.png'
 import barChartIcon from '../assets/icons3d/bar_chart.png'
 import fireIcon from '../assets/icons3d/fire.png'
 import satelliteIcon from '../assets/icons3d/satellite_antenna.png'
@@ -34,11 +31,17 @@ export const projects: Project[] = [
   { id: 'sheros', title: 'SHEROS', category: 'Monitoring', year: '2025', accent: 'lime', icon: barChartIcon, summary: 'Cross-platform system health monitoring with a local dashboard and SQLite-backed history.', problem: 'System health signals can be hard to track consistently across Windows and Linux machines.', solution: 'A local monitoring application that exposes health metrics through REST APIs and presents them in a responsive dashboard.', contribution: 'Built the cross-platform monitoring workflow, dashboard, local storage, threshold alerts, and environment setup automation.', technologies: ['Python', 'psutil', 'SQLite', 'REST API', 'Shell', 'Windows', 'Linux'], features: ['CPU, memory, disk, network, uptime & process monitoring', 'SQLite storage with configurable retention', 'Threshold-based alerts', 'Automated Windows & Linux setup'] },
 ]
 
-export const skillGroups = [
-  { name: 'Programming', icon: laptopIcon, items: ['Python', 'Java', 'JavaScript', 'SQL', 'Shell Scripting'] },
-  { name: 'Development', icon: desktopIcon, items: ['React.js', 'Node.js', 'HTML5', 'CSS3', 'REST APIs'] },
-  { name: 'DevOps & Monitoring', icon: gearIcon, items: ['Linux', 'Docker', 'AWS', 'CI/CD Pipeline', 'Grafana', 'Prometheus', 'Netdata', 'Server Deployment', 'Automation'] },
-  { name: 'AI & Tools', icon: robotIcon, items: ['YOLOv5', 'YOLOE', 'AI Model Training', 'SQLite', 'Git', 'GitHub', 'Figma'] },
+export type SkillGroup = {
+  id: string; name: string; tag: string; level: number; description: string; items: string[];
+}
+
+export const skillGroups: SkillGroup[] = [
+  { id: 'programming', name: 'Programming', tag: 'Core', level: 85, description: 'Write clean, efficient code to solve real-world problems.', items: ['Python', 'Java', 'JavaScript', 'SQL', 'Shell Scripting'] },
+  { id: 'development', name: 'Development', tag: 'Frontend & Backend', level: 80, description: 'Build modern, responsive, user-friendly web applications.', items: ['React.js', 'Node.js', 'HTML5', 'CSS3', 'REST APIs'] },
+  { id: 'devops-cloud', name: 'DevOps & Cloud', tag: 'Infrastructure', level: 90, description: 'Automate, deploy, and scale infrastructure for reliable systems.', items: ['Linux', 'Docker', 'AWS', 'CI/CD Pipeline', 'Server Deployment', 'Automation'] },
+  { id: 'monitoring', name: 'Monitoring & Observability', tag: 'Reliability', level: 85, description: 'Keep systems visible, alertable, and easy to operate.', items: ['Grafana', 'Prometheus', 'Netdata'] },
+  { id: 'ai', name: 'AI & Computer Vision', tag: 'AI / ML', level: 75, description: 'Apply AI and computer vision to real-time detection and analytics.', items: ['YOLOv5', 'YOLOE', 'AI Model Training'] },
+  { id: 'tools', name: 'Tools & Collaboration', tag: 'Workflow', level: 80, description: 'Version control, data, and design tools that keep projects moving.', items: ['SQLite', 'Git', 'GitHub', 'Figma'] },
 ]
 
 export const education = [
