@@ -37,7 +37,7 @@ export const projects: Project[] = [
 export const skillGroups = [
   { name: 'Programming', icon: laptopIcon, items: ['Python', 'Java', 'JavaScript', 'SQL', 'Shell Scripting'] },
   { name: 'Development', icon: desktopIcon, items: ['React.js', 'Node.js', 'HTML5', 'CSS3', 'REST APIs'] },
-  { name: 'DevOps & Monitoring', icon: gearIcon, items: ['Linux', 'Docker', 'Grafana', 'Prometheus', 'Netdata', 'Server Deployment', 'Automation'] },
+  { name: 'DevOps & Monitoring', icon: gearIcon, items: ['Linux', 'Docker', 'AWS', 'CI/CD Pipeline', 'Grafana', 'Prometheus', 'Netdata', 'Server Deployment', 'Automation'] },
   { name: 'AI & Tools', icon: robotIcon, items: ['YOLOv5', 'YOLOE', 'AI Model Training', 'SQLite', 'Git', 'GitHub', 'Figma'] },
 ]
 
