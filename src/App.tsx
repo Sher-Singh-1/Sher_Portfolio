@@ -295,15 +295,29 @@ function ProjectModal({
         </p>
         <h2 id="project-title">{project.title}</h2>
         <p className="modal-lede">{project.summary}</p>
-        {project.link && (
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="modal-link"
-          >
-            View repository <ExternalLink size={14} />
-          </a>
+        {(project.demo || project.link) && (
+          <div className="modal-links">
+            {project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="modal-link"
+              >
+                Live preview <ExternalLink size={14} />
+              </a>
+            )}
+            {project.link && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="modal-link"
+              >
+                View repository <ExternalLink size={14} />
+              </a>
+            )}
+          </div>
         )}
         <div className="detail-grid">
           <div>
