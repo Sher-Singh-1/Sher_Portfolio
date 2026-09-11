@@ -1,12 +1,11 @@
 /* ===== Projects showcase — black/yellow redesign ===== */
 .pj-section {
-  --pj-bg: #0a0a09;
-  --pj-ink: #050504;
-  --pj-yellow: #f5e400;
-  --pj-yellow-soft: rgba(245, 228, 0, 0.14);
-  --pj-white: #f6f5ef;
-  --pj-muted: #9d9a8c;
-  --pj-line: rgba(255, 255, 255, 0.14);
+  --pj-bg: var(--bg);
+  --pj-ink: var(--ink);
+  --pj-yellow: var(--gold);
+  --pj-white: var(--text);
+  --pj-muted: var(--muted);
+  --pj-line: var(--line);
   --pj-hand: 'Caveat', cursive;
   --pj-display: 'Space Grotesk', 'DM Sans', sans-serif;
   background: var(--pj-bg);
@@ -20,9 +19,9 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.5;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  opacity: 0.6;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: radial-gradient(circle at 15% 15%, black, transparent 55%);
 }
@@ -153,7 +152,7 @@
 }
 .pj-card {
   border: 1px solid var(--pj-line);
-  background: #111110;
+  background: var(--panel);
   cursor: pointer;
   outline: none;
   border-radius: 6px;

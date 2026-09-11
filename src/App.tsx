@@ -11,24 +11,60 @@ import {
 import {
   AlertTriangle,
   ArrowUpRight,
+  Bot,
   Box,
+  BrainCircuit,
+  Building2,
   ChevronRight,
+  Cloud,
+  Code2,
   Crown,
+  Database,
   Download,
   ExternalLink,
+  Infinity as InfinityIcon,
+  Landmark,
   LayoutDashboard,
+  Layers,
   Mail,
   Menu,
   Moon,
   Play,
+  Radar,
+  ScanEye,
+  Server,
   Sun,
+  Webhook,
+  Workflow,
   X,
+  Zap,
+  type LucideIcon,
 } from "lucide-react";
+import type { IconType } from "react-icons";
+import { FaAws } from "react-icons/fa6";
+import { DiJava } from "react-icons/di";
+import {
+  SiCss,
+  SiDocker,
+  SiFigma,
+  SiGit,
+  SiGithub,
+  SiGnubash,
+  SiGrafana,
+  SiHtml5,
+  SiJavascript,
+  SiKubernetes,
+  SiLeetcode,
+  SiLinux,
+  SiNetdata,
+  SiNodedotjs,
+  SiPrometheus,
+  SiPython,
+  SiReact,
+  SiSqlite,
+} from "react-icons/si";
 import profileImage from "../data/Profile.jpeg";
-import gearIcon from "./assets/icons3d/gear.png";
 import barChartIcon from "./assets/icons3d/bar_chart.png";
-import rocketIcon from "./assets/icons3d/rocket.png";
-import sparklesIcon from "./assets/icons3d/sparkles.png";
 import packageIcon from "./assets/icons3d/package.png";
 import graduationCapIcon from "./assets/icons3d/graduation_cap.png";
 import trophyIcon from "./assets/icons3d/trophy.png";
@@ -45,6 +81,7 @@ import {
 import "./App.css";
 import "./upgrade.css";
 import "./projects.css";
+import "./hero.css";
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 const reveal = {
@@ -71,6 +108,59 @@ const getInitialTheme = (): Theme => {
 const marqueeItems = Array.from(
   new Set(skillGroups.flatMap((group) => group.items)),
 );
+const skillIconMap: Record<string, LucideIcon | IconType> = {
+  Python: SiPython,
+  Java: DiJava,
+  JavaScript: SiJavascript,
+  SQL: Database,
+  "Shell Scripting": SiGnubash,
+  "React.js": SiReact,
+  "Node.js": SiNodedotjs,
+  HTML5: SiHtml5,
+  CSS3: SiCss,
+  "REST APIs": Webhook,
+  Linux: SiLinux,
+  Docker: SiDocker,
+  AWS: FaAws,
+  "CI/CD Pipeline": Workflow,
+  Grafana: SiGrafana,
+  Prometheus: SiPrometheus,
+  Netdata: SiNetdata,
+  "Server Deployment": Server,
+  Automation: Bot,
+  YOLOv5: ScanEye,
+  YOLOE: ScanEye,
+  "AI Model Training": BrainCircuit,
+  SQLite: SiSqlite,
+  Git: SiGit,
+  GitHub: SiGithub,
+  Figma: SiFigma,
+};
+type WorldNode = {
+  id: string;
+  icon: LucideIcon | IconType;
+  color: string;
+  title: string;
+  lines: string[];
+  top: string;
+  left: string;
+};
+const worldNodes: WorldNode[] = [
+  { id: "aws", icon: FaAws, color: "#ff9900", title: "AWS", lines: ["EC2 · S3 · RDS", "VPC · IAM · CloudWatch"], top: "8%", left: "64%" },
+  { id: "cicd", icon: InfinityIcon, color: "#3b82f6", title: "CI/CD Pipeline", lines: ["Automate · Test · Deploy", "Jenkins · Docker · Kubernetes", "GitHub Actions"], top: "23%", left: "3%" },
+  { id: "k8s", icon: SiKubernetes, color: "#3b82f6", title: "Kubernetes", lines: ["Scalable", "Container Infra"], top: "48%", left: "-2%" },
+  { id: "monitoring", icon: Radar, color: "#f97316", title: "Monitoring", lines: ["Grafana · Prometheus", "Alerting · Observability"], top: "70%", left: "6%" },
+  { id: "ai", icon: BrainCircuit, color: "#a855f7", title: "AI / ML", lines: ["YOLOv5 · Computer Vision", "Real-time Analytics"], top: "83%", left: "34%" },
+  { id: "docker", icon: SiDocker, color: "#2496ed", title: "Docker", lines: ["Build & Ship", "Scale Anywhere"], top: "72%", left: "73%" },
+  { id: "enterprise", icon: Building2, color: "#cbd5e1", title: "Enterprise", lines: ["Enterprise-grade solutions"], top: "52%", left: "86%" },
+  { id: "government", icon: Landmark, color: "#cbd5e1", title: "Government", lines: ["Government-level projects"], top: "27%", left: "82%" },
+];
+const heroStats = [
+  { icon: Layers, value: "4+", label: "Projects" },
+  { icon: Cloud, value: "AWS", label: "Cloud Experience" },
+  { icon: Landmark, value: "Govt & Enterprise", label: "Contributions" },
+  { icon: Zap, value: "Always", label: "Learning" },
+];
 
 function LinkedInMark({ size = 18 }: { size?: number }) {
   return (
@@ -136,32 +226,6 @@ function MagneticLink({
     >
       {children}
     </a>
-  );
-}
-
-function FloatIcon({
-  src,
-  alt,
-  className = "",
-  duration = 4.5,
-  delay = 0,
-  distance = 12,
-}: {
-  src: string;
-  alt: string;
-  className?: string;
-  duration?: number;
-  delay?: number;
-  distance?: number;
-}) {
-  return (
-    <motion.img
-      src={src}
-      alt={alt}
-      className={`icon-3d ${className}`}
-      animate={{ y: [0, -distance, 0], rotate: [0, 3, 0, -3, 0] }}
-      transition={{ duration, delay, repeat: Infinity, ease: "easeInOut" }}
-    />
   );
 }
 
@@ -602,103 +666,159 @@ function App() {
         </nav>
       </header>
       <main id="home">
-        <section className="hero wrap">
-          <div className="hero-copy">
-            <motion.p {...reveal} className="overline">
-              <span className="status-dot" /> Available for technical
-              opportunities
-            </motion.p>
-            <motion.h1
-              initial={{ opacity: 0, y: 34 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.7,
-                delay: 0.1,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-            >
-              Engineering resilient systems for a world that{" "}
-              <em>moves fast.</em>
-            </motion.h1>
-            <motion.p
-              {...reveal}
-              transition={{ duration: 0.55, delay: 0.25 }}
-              className="hero-text"
-            >
-              {profile.intro}
-            </motion.p>
-            <motion.div
-              {...reveal}
-              transition={{ duration: 0.55, delay: 0.35 }}
-              className="hero-actions"
-            >
-              <MagneticLink href="#projects" className="button primary">
-                View my work <ArrowUpRight />
-              </MagneticLink>
-              <MagneticLink href="#contact" className="button ghost">
-                Let’s connect <ArrowUpRight />
-              </MagneticLink>
-            </motion.div>
-            <div className="social-row">
-              {profile.social.map((social) => (
-                <MagneticLink
-                  href={social.url}
-                  className="social-link"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  key={social.label}
-                >
-                  {social.label} <span>↗</span>
+        <section className="hero-v2">
+          <div className="wrap hero-v2-inner">
+            <div className="hero-copy">
+              <motion.p {...reveal} className="hero-tag">
+                <span className="hero-tag-dot" />
+                Build <ChevronRight size={11} /> Automate{" "}
+                <ChevronRight size={11} /> Deploy <ChevronRight size={11} />{" "}
+                Impact
+              </motion.p>
+              <motion.h1
+                initial={{ opacity: 0, y: 34 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.1,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+              >
+                Engineering resilient systems for a world that{" "}
+                <em>moves fast.</em>
+              </motion.h1>
+              <motion.p
+                {...reveal}
+                transition={{ duration: 0.55, delay: 0.25 }}
+                className="hero-text"
+              >
+                {profile.intro} From cloud deployments on AWS to contributing
+                in government and enterprise-level projects — I turn ideas
+                into real-world impact.
+              </motion.p>
+              <motion.div
+                {...reveal}
+                transition={{ duration: 0.55, delay: 0.35 }}
+                className="hero-actions"
+              >
+                <MagneticLink href="#projects" className="button primary">
+                  View my work <ArrowUpRight />
                 </MagneticLink>
-              ))}
+                <MagneticLink href="#contact" className="button ghost">
+                  Let’s connect <ArrowUpRight />
+                </MagneticLink>
+              </motion.div>
+              <motion.div
+                {...reveal}
+                transition={{ duration: 0.5, delay: 0.42 }}
+                className="hero-stats"
+              >
+                {heroStats.map((stat) => (
+                  <div className="hero-stat" key={stat.label}>
+                    <stat.icon size={16} />
+                    <div>
+                      <b>{stat.value}</b>
+                      <span>{stat.label}</span>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+              <div className="hero-social">
+                <span>Connect with me</span>
+                <div>
+                  {profile.social.map((social) => {
+                    const Icon =
+                      social.label === "LinkedIn"
+                        ? LinkedInMark
+                        : social.label === "GitHub"
+                          ? GithubMark
+                          : SiLeetcode;
+                    return (
+                      <MagneticLink
+                        href={social.url}
+                        className="hero-social-icon"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        key={social.label}
+                        aria-label={social.label}
+                      >
+                        <Icon size={16} />
+                      </MagneticLink>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-          </div>
-        <motion.div
-          style={{ y: heroY }}
-          className="hero-visual"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            aria-hidden="true"
-          >
-            <div className="orbit orbit-a" />
-            <div className="orbit orbit-b" />
-            <div className="core">
-              <span>
-                DEV
+            <motion.div
+              style={{ y: heroY }}
+              className="hero-globe-wrap"
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.15 }}
+              aria-hidden="true"
+            >
+              <p className="hero-doodle hero-doodle-top">
+                Technology
                 <br />
-                OPS
-              </span>
-            </div>
-            <div className="code-card card-one">
-              <img src={barChartIcon} alt="" className="icon-3d card-icon" />
-              <span>01</span>
-              <b>OBSERVE</b>
-              <i>Grafana · Prometheus</i>
-            </div>
-            <div className="code-card card-two">
-              <img src={gearIcon} alt="" className="icon-3d card-icon" />
-              <span>02</span>
-              <b>AUTOMATE</b>
-              <i>Python · Shell</i>
-            </div>
-            <FloatIcon
-              src={rocketIcon}
-              alt=""
-              className="hero-float-icon hero-float-rocket"
-              duration={4}
-              distance={16}
-            />
-            <FloatIcon
-              src={sparklesIcon}
-              alt=""
-              className="hero-float-icon hero-float-sparkles"
-              duration={3.4}
-              delay={0.6}
-              distance={10}
-            />
-            <div className="grid-planes" />
-          </motion.div>
+                for a Better
+                <br />
+                Tomorrow.
+              </p>
+              <div className="hero-globe">
+                <div className="hero-globe-sphere" />
+                <div className="hero-globe-center">
+                  <b>IDEAS DEPLOYED</b>
+                  <span>WORLDWIDE</span>
+                </div>
+                <svg
+                  className="hero-globe-lines"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="none"
+                >
+                  {worldNodes.map((node) => (
+                    <line
+                      key={node.id}
+                      x1="50"
+                      y1="50"
+                      x2={parseFloat(node.left) + 3}
+                      y2={parseFloat(node.top) + 3}
+                    />
+                  ))}
+                </svg>
+                {worldNodes.map((node) => (
+                  <div
+                    className="hero-node"
+                    style={{ top: node.top, left: node.left }}
+                    key={node.id}
+                  >
+                    <span
+                      className="hero-node-badge"
+                      style={{ color: node.color, borderColor: node.color }}
+                    >
+                      <node.icon size={20} />
+                    </span>
+                    <span className="hero-node-label">
+                      <b>{node.title}</b>
+                      {node.lines.map((line) => (
+                        <i key={line}>{line}</i>
+                      ))}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <p className="hero-doodle hero-doodle-bottom">
+                From Code
+                <br />
+                to Real
+                <br />
+                Impact.
+              </p>
+            </motion.div>
+          </div>
+          <div className="wrap hero-bottombar">
+            <p>Turning ideas into impact</p>
+            <p>Same student. Bigger dreams.</p>
+          </div>
         </section>
         <TechMarquee />
         <section id="about" className="section wrap about">
@@ -806,10 +926,16 @@ function App() {
                 <span className="skill-index">0{index + 1}</span>
                 <img src={group.icon} alt="" className="icon-3d skill-icon" />
                 <h3>{group.name}</h3>
-                <div>
-                  {group.items.map((item) => (
-                    <span key={item}>{item}</span>
-                  ))}
+                <div className="skill-chips">
+                  {group.items.map((item) => {
+                    const Icon = skillIconMap[item] ?? Code2;
+                    return (
+                      <span className="skill-chip" key={item}>
+                        <Icon size={13} />
+                        {item}
+                      </span>
+                    );
+                  })}
                 </div>
               </motion.article>
             ))}
