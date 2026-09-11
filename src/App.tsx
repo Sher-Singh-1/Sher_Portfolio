@@ -9,10 +9,14 @@ import {
   useTransform,
 } from "motion/react";
 import {
+  AlertTriangle,
   ArrowUpRight,
+  Box,
   ChevronRight,
+  Crown,
   Download,
   ExternalLink,
+  LayoutDashboard,
   Mail,
   Menu,
   Moon,
@@ -40,6 +44,7 @@ import {
 } from "./data/portfolio";
 import "./App.css";
 import "./upgrade.css";
+import "./projects.css";
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 const reveal = {
@@ -48,7 +53,13 @@ const reveal = {
   viewport: { once: true, amount: 0.18 },
   transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
 } as const;
-const filters = ["All", "DevOps", "AI / ML", "Monitoring"] as const;
+const filters = ["All", "AI / ML", "DevOps", "Monitoring", "Web Apps"] as const;
+const projectCaptions: Record<string, string[]> = {
+  "go-sheros": ["Plan", "Track", "Improve"],
+  fire: ["Detect", "Alert", "Protect"],
+  vms: ["Deploy", "Monitor", "Scale"],
+  sheros: ["Monitor", "Analyze", "Keep it Healthy"],
+};
 type Theme = "light" | "dark";
 const getInitialTheme = (): Theme => {
   if (typeof document !== "undefined") {
@@ -71,6 +82,20 @@ function LinkedInMark({ size = 18 }: { size?: number }) {
       aria-hidden="true"
     >
       <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.11 20.45H3.56V9h3.55z" />
+    </svg>
+  );
+}
+
+function GithubMark({ size = 18 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55v-2.16c-3.2.7-3.87-1.36-3.87-1.36-.53-1.32-1.28-1.68-1.28-1.68-1.05-.7.08-.69.08-.69 1.16.08 1.77 1.18 1.77 1.18 1.03 1.75 2.7 1.24 3.36.95.1-.75.4-1.24.73-1.53-2.55-.28-5.24-1.27-5.24-5.63 0-1.24.45-2.26 1.18-3.05-.12-.28-.51-1.44.11-3 0 0 .96-.3 3.15 1.17a11.05 11.05 0 0 1 5.74 0c2.18-1.47 3.14-1.17 3.14-1.17.63 1.56.24 2.72.12 3 .74.79 1.18 1.81 1.18 3.05 0 4.37-2.7 5.34-5.27 5.62.42.36.78 1.07.78 2.16v3.2c0 .31.21.66.79.55A10.51 10.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z" />
     </svg>
   );
 }
@@ -152,11 +177,103 @@ function TechMarquee() {
   );
 }
 
+function ProjectIllustration({ id }: { id: string }) {
+  if (id === "go-sheros") {
+    return (
+      <div className="pj-phone" aria-hidden="true">
+        <div className="pj-phone-screen">
+          <span className="pj-phone-today">Today</span>
+          {["Complete project", "Workout", "Read a book", "Learn DevOps"].map(
+            (task, index) => (
+              <div className="pj-phone-row" key={task}>
+                <span
+                  className={`pj-phone-check ${index < 2 ? "done" : ""}`}
+                />
+                {task}
+              </div>
+            ),
+          )}
+          <div className="pj-phone-progress">
+            <span>Goal Progress</span>
+            <b>70%</b>
+          </div>
+          <div className="pj-phone-bars">
+            {[40, 70, 55, 90, 60].map((h, index) => (
+              <i key={index} style={{ height: `${h}%` }} />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (id === "fire") {
+    return (
+      <div className="pj-camera" aria-hidden="true">
+        <div className="pj-camera-glow" />
+        <div className="pj-camera-body">
+          <div className="pj-camera-lens">
+            <span className="pj-camera-dot" />
+          </div>
+          <div className="pj-camera-arm" />
+          <div className="pj-camera-base" />
+        </div>
+        <div className="pj-camera-alert">
+          <AlertTriangle size={12} /> Fire Detected
+        </div>
+      </div>
+    );
+  }
+  if (id === "vms") {
+    return (
+      <div className="pj-servers" aria-hidden="true">
+        <div className="pj-cloud" />
+        {[0, 1, 2].map((row) => (
+          <div className="pj-server" key={row}>
+            <span className="pj-server-light" />
+            <span className="pj-server-light" />
+          </div>
+        ))}
+        <svg className="pj-tux" viewBox="0 0 24 28" aria-hidden="true">
+          <ellipse cx="12" cy="15" rx="9" ry="12" fill="#0a0a0a" />
+          <ellipse cx="12" cy="17" rx="5" ry="8" fill="#fff" />
+          <circle cx="9.2" cy="8.5" r="1.1" fill="#fff" />
+          <circle cx="14.8" cy="8.5" r="1.1" fill="#fff" />
+          <path d="M10.5 10.5L12 12.5L13.5 10.5Z" fill="#f0a500" />
+          <path d="M6 22c1.5 1.5 3 2 6 2s4.5-.5 6-2" stroke="none" fill="none" />
+          <ellipse cx="8" cy="25.5" rx="1.6" ry="0.8" fill="#f0a500" />
+          <ellipse cx="16" cy="25.5" rx="1.6" ry="0.8" fill="#f0a500" />
+        </svg>
+      </div>
+    );
+  }
+  return (
+    <div className="pj-monitor" aria-hidden="true">
+      <div className="pj-monitor-screen">
+        <div className="pj-monitor-bars">
+          {[35, 65, 45, 80].map((h, index) => (
+            <i key={index} style={{ height: `${h}%` }} />
+          ))}
+        </div>
+        <svg
+          className="pj-monitor-line"
+          viewBox="0 0 100 30"
+          preserveAspectRatio="none"
+        >
+          <polyline points="0,20 14,20 22,6 30,26 38,14 46,20 60,20 68,8 76,24 84,16 100,16" />
+        </svg>
+      </div>
+      <div className="pj-monitor-stand" />
+    </div>
+  );
+}
+
 function ProjectCard({
   project,
+  index,
   onSelect,
 }: {
   project: Project;
+  index: number;
   onSelect: () => void;
 }) {
   const rotateX = useMotionValue(0);
@@ -174,6 +291,15 @@ function ProjectCard({
     rotateX.set(0);
     rotateY.set(0);
   };
+  const letter =
+    project.id === "sheros"
+      ? "S"
+      : project.id === "fire"
+        ? "AI"
+        : project.id === "go-sheros"
+          ? "GS"
+          : "VMS";
+  const caption = projectCaptions[project.id] ?? [];
   return (
     <motion.article
       layout
@@ -185,7 +311,7 @@ function ProjectCard({
         rotateY: springRotateY,
         transformPerspective: 800,
       }}
-      className={`project-card ${project.accent}`}
+      className={`pj-card ${project.accent}`}
       onClick={onSelect}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
@@ -194,35 +320,48 @@ function ProjectCard({
       aria-label={`Read ${project.title} case study`}
       onKeyDown={(event) => event.key === "Enter" && onSelect()}
     >
-      <div className="project-art">
-        <span>{project.category}</span>
-        <b>
-          {project.id === "sheros"
-            ? "S"
-            : project.id === "fire"
-              ? "AI"
-              : project.id === "go-sheros"
-                ? "GS"
-                : "VMS"}
-        </b>
-        <FloatIcon
-          src={project.icon}
-          alt=""
-          className="project-icon"
-          duration={5}
-        />
+      <div className="pj-card-art">
+        <div className="pj-topline">
+          <span className="pj-num">{String(index + 1).padStart(2, "0")}</span>
+          <span className="pj-year">{project.year}</span>
+        </div>
+        <span className="pj-bigletter">{letter}</span>
+        {caption.length > 0 && (
+          <div className="pj-caption">
+            {caption.map((word) => (
+              <span key={word}>{word}</span>
+            ))}
+            <svg className="pj-caption-arrow" viewBox="0 0 60 44" aria-hidden="true">
+              <path d="M4 4c18 2 10 26 38 24" />
+              <path d="M42 28l-3-8M42 28l-9 1" />
+            </svg>
+          </div>
+        )}
+        <ProjectIllustration id={project.id} />
+        {project.id === "go-sheros" && (
+          <span className="pj-badge pj-badge-left">
+            <Crown size={14} />
+          </span>
+        )}
+        {project.id === "sheros" && (
+          <span className="pj-badge pj-badge-right">
+            <LayoutDashboard size={14} />
+          </span>
+        )}
       </div>
-      <div className="project-content">
-        <p>{project.year}</p>
+      <div className="pj-card-body">
         <h3>{project.title}</h3>
-        <p className="project-summary">{project.summary}</p>
+        <p className="pj-summary">{project.summary}</p>
         <div className="tags">
-          {project.technologies.slice(0, 3).map((tech) => (
+          {project.technologies.slice(0, 4).map((tech) => (
             <span key={tech}>{tech}</span>
           ))}
         </div>
-        <button>
-          View case study <ChevronRight size={16} />
+        <button className="pj-case">
+          View case study
+          <span className="pj-case-icon">
+            <ExternalLink size={12} />
+          </span>
         </button>
       </div>
     </motion.article>
@@ -357,6 +496,10 @@ function App() {
   const linkedInUrl = profile.social.find(
     (social) => social.label === "LinkedIn",
   )?.url;
+  const githubUrl = profile.social.find(
+    (social) => social.label === "GitHub",
+  )?.url;
+  const sherosProject = projects.find((project) => project.id === "sheros")!;
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 25 });
   const heroY = useTransform(scrollYProgress, [0, 0.22], [0, -86]);
@@ -672,42 +815,91 @@ function App() {
             ))}
           </div>
         </section>
-        <section id="projects" className="section project-section">
+        <section id="projects" className="pj-section">
           <div className="wrap">
-            <motion.div {...reveal} className="section-heading split">
-              <div>
-                <p className="overline">04 · Selected projects</p>
-                <h2>
-                  Built to solve,
-                  <br />
-                  <em>made to last.</em>
+            <div className="pj-top">
+              <motion.div {...reveal} className="pj-heading-col">
+                <p className="pj-tag">// 04</p>
+                <h2 className="pj-title">
+                  <span className="pj-white-text">PRO</span>
+                  <span className="pj-yellow-text">JECTS</span>
                 </h2>
-              </div>
-              <p>
-                Each project reflects a practical engineering problem, from
-                local system observability to AI-enabled video intelligence.
-              </p>
-            </motion.div>
-            <div className="filter-bar" aria-label="Project filters">
-              {filters.map((item) => (
-                <button
-                  className={filter === item ? "active" : ""}
-                  onClick={() => setFilter(item)}
-                  key={item}
-                >
-                  {item}
-                </button>
-              ))}
+                <p className="pj-flow">
+                  IDEAS <ChevronRight size={12} /> CODE{" "}
+                  <ChevronRight size={12} /> DEPLOY{" "}
+                  <ChevronRight size={12} /> IMPACT
+                </p>
+                <p className="pj-desc">
+                  A collection of real-world projects that showcase my
+                  skills, passion and curiosity for building solutions.
+                </p>
+                <div className="pj-filters" aria-label="Project filters">
+                  {filters.map((item) => {
+                    const count =
+                      item === "All"
+                        ? projects.length
+                        : projects.filter(
+                            (project) => project.category === item,
+                          ).length;
+                    return (
+                      <button
+                        className={filter === item ? "active" : ""}
+                        onClick={() => setFilter(item)}
+                        key={item}
+                      >
+                        {item === "All" ? "All Projects" : item} ({count})
+                      </button>
+                    );
+                  })}
+                </div>
+              </motion.div>
+              <motion.div {...reveal} className="pj-aside">
+                <p className="pj-doodle">
+                  Turning Ideas
+                  <br />
+                  into Impact.
+                </p>
+                <svg className="pj-doodle-arrow" viewBox="0 0 80 90" aria-hidden="true">
+                  <path d="M8 6c52 4 45 40 15 56" />
+                  <path d="M23 62l-11-4M23 62l-5 11" />
+                </svg>
+                <div className="pj-note">
+                  <span className="pj-note-icon">
+                    <Box size={18} />
+                  </span>
+                  <p>Each project is a step in my learning journey.</p>
+                  <p>
+                    Different problems.
+                    <br />
+                    Same mindset.
+                  </p>
+                  <p className="pj-note-strong">
+                    Build. Learn. Improve. Repeat.
+                  </p>
+                </div>
+              </motion.div>
             </div>
-            <motion.div layout className="project-grid">
-              {visibleProjects.map((project) => (
+            <motion.div layout className="pj-grid">
+              {visibleProjects.map((project, index) => (
                 <ProjectCard
                   project={project}
+                  index={index}
                   onSelect={() => setSelected(project)}
                   key={project.id}
                 />
               ))}
             </motion.div>
+            <div className="pj-bottombar">
+              <p>
+                <span className="pj-quote">&ldquo;</span> Building solutions
+                for a better tomorrow. <span className="pj-quote">&rdquo;</span>
+              </p>
+              {githubUrl && (
+                <a href={githubUrl} target="_blank" rel="noreferrer noopener">
+                  Explore more on GitHub <GithubMark size={16} />
+                </a>
+              )}
+            </div>
           </div>
         </section>
         <section className="sheros-section">
@@ -730,7 +922,7 @@ function App() {
               </div>
               <button
                 className="case-link"
-                onClick={() => setSelected(projects[0])}
+                onClick={() => setSelected(sherosProject)}
               >
                 Read the full case study <ArrowUpRight />
               </button>
@@ -743,13 +935,13 @@ function App() {
             </div>
             <div className="case-grid">
               {[
-                ["The problem", projects[0].problem],
-                ["The solution", projects[0].solution],
+                ["The problem", sherosProject.problem],
+                ["The solution", sherosProject.solution],
                 [
                   "Architecture",
                   "Python and psutil collect system data; REST APIs expose it to a responsive web dashboard; SQLite retains local historical data.",
                 ],
-                ["My role", projects[0].contribution],
+                ["My role", sherosProject.contribution],
               ].map(([title, content], index) => (
                 <motion.div
                   {...reveal}
