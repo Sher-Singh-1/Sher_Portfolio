@@ -44,9 +44,31 @@ export const skillGroups: SkillGroup[] = [
   { id: 'tools', name: 'Tools & Collaboration', tag: 'Workflow', level: 80, description: 'Version control, data, and design tools that keep projects moving.', items: ['SQLite', 'Git', 'GitHub', 'Figma'] },
 ]
 
-export const education = [
-  { degree: 'Master of Computer Applications', school: 'Maha Rishi Dayanand University, Rohtak, Haryana', duration: 'Aug 2026 — May 2028 (Expected)' },
-  { degree: 'Bachelor of Computer Applications', school: 'Maha Rishi Dayanand University, Rohtak, Haryana', duration: 'Aug 2022 — May 2025 · CGPA 7.0' },
+export type Education = {
+  degree: string; school: string; duration: string; years: string; expected: boolean;
+  description: string; tags: string[];
+}
+
+export const education: Education[] = [
+  {
+    degree: 'Master of Computer Applications', school: 'Maha Rishi Dayanand University, Rohtak, Haryana',
+    duration: 'Aug 2026 — May 2028 (Expected)', years: '2026 – 2028', expected: true,
+    description: 'Deepening my knowledge in software development, system design, and emerging technologies.',
+    tags: ['Advanced Programming', 'System Design', 'Cloud & DevOps', 'AI & Data Analytics'],
+  },
+  {
+    degree: 'Bachelor of Computer Applications', school: 'Maha Rishi Dayanand University, Rohtak, Haryana',
+    duration: 'Aug 2022 — May 2025 · CGPA 7.0', years: '2022 – 2025', expected: false,
+    description: 'Built a strong foundation in computer science, programming, and problem-solving.',
+    tags: ['Programming', 'Data Structures', 'Web Development', 'Database Management'],
+  },
 ]
 
-export const achievements = ['College Level Hackathon Qualified', 'CSS | JavaScript — HackerRank', 'Data Analytics Certified — Anudip Foundation', 'Mirasys VMS Certified — Mirasys India']
+export type Achievement = { title: string; subtitle: string }
+
+export const achievements: Achievement[] = [
+  { title: 'College Level Hackathon', subtitle: 'Qualified' },
+  { title: 'CSS | JavaScript', subtitle: 'HackerRank' },
+  { title: 'Data Analytics Certified', subtitle: 'Anudip Foundation' },
+  { title: 'Mirasys VMS Certified', subtitle: 'Mirasys India' },
+]

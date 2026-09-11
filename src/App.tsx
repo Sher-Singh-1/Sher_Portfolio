@@ -26,15 +26,12 @@ import {
 import { MagneticLink } from "./components/MagneticLink";
 import { Hero } from "./components/hero/Hero";
 import { SkillsSection } from "./components/skills/SkillsSection";
+import { EducationSection } from "./components/education/EducationSection";
 import profileImage from "../data/Profile.jpeg";
 import barChartIcon from "./assets/icons3d/bar_chart.png";
 import packageIcon from "./assets/icons3d/package.png";
-import graduationCapIcon from "./assets/icons3d/graduation_cap.png";
-import trophyIcon from "./assets/icons3d/trophy.png";
 import envelopeIcon from "./assets/icons3d/envelope.png";
 import {
-  achievements,
-  education,
   experiences,
   profile,
   projects,
@@ -757,51 +754,7 @@ function App() {
             </div>
           </div>
         </section>
-        <section id="education" className="section wrap two-column">
-          <motion.div {...reveal}>
-            <p className="overline">06 · Education & recognition</p>
-            <h2>
-              <img
-                src={graduationCapIcon}
-                alt=""
-                className="icon-3d heading-icon"
-              />
-              Always
-              <br />
-              <em>learning.</em>
-            </h2>
-          </motion.div>
-          <div>
-            <div className="education-list">
-              {education.map((item) => (
-                <motion.article
-                  {...reveal}
-                  className="education-item"
-                  key={item.degree}
-                >
-                  <h3>{item.degree}</h3>
-                  <p>{item.school}</p>
-                  <span>{item.duration}</span>
-                </motion.article>
-              ))}
-            </div>
-            <div className="achievements">
-              <p className="overline">
-                <img
-                  src={trophyIcon}
-                  alt=""
-                  className="icon-3d achievements-icon"
-                />
-                Certifications & achievements
-              </p>
-              {achievements.map((achievement) => (
-                <motion.p {...reveal} key={achievement}>
-                  ✦ {achievement}
-                </motion.p>
-              ))}
-            </div>
-          </div>
-        </section>
+        <EducationSection />
         <section className="resume-section">
           <motion.div {...reveal} className="wrap resume-inner">
             <div>
