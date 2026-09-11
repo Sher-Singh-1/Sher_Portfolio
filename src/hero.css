@@ -1,17 +1,17 @@
 /* ===== Hero — cinematic engineering identity =====
-   Fixed premium palette (deliberately not tied to the site-wide light/dark
-   toggle — same signature-band treatment already used by the SHEROS case
-   study and Projects showcase sections). */
+   Colors are aliased to the site's shared --bg/--text/--gold tokens
+   (defined in App.css / upgrade.css) so this section follows the
+   light/dark toggle like the rest of the site. */
 .hero-v2 {
-  --h-bg: #080807;
-  --h-bg2: #0d0d0b;
-  --h-text: #f4f0e6;
-  --h-muted: #a7a39a;
-  --h-gold: #e4b928;
-  --h-gold-bright: #f2c94c;
-  --h-glow: rgba(228, 185, 40, 0.18);
-  --h-border: rgba(228, 185, 40, 0.2);
-  --h-border-soft: rgba(244, 240, 230, 0.1);
+  --h-bg: var(--bg);
+  --h-bg2: var(--panel);
+  --h-text: var(--text);
+  --h-muted: var(--muted);
+  --h-gold: var(--gold);
+  --h-gold-bright: var(--gold-2);
+  --h-glow: var(--line-strong);
+  --h-border: var(--line-strong);
+  --h-border-soft: var(--line);
   --h-display: 'Sora', 'Space Grotesk', sans-serif;
   --h-mono: 'JetBrains Mono', 'DM Mono', monospace;
   background: var(--h-bg);
@@ -101,7 +101,7 @@
 .hero-v2 .button.primary {
   background: var(--h-gold);
   border-color: var(--h-gold);
-  color: #100d02;
+  color: var(--ink);
 }
 .hero-v2 .button.primary:hover {
   background: var(--h-gold-bright);

@@ -1,14 +1,16 @@
-/* ===== Skills — same cinematic engineering identity as the hero ===== */
+/* ===== Skills — same cinematic engineering identity as the hero =====
+   Colors alias the shared --bg/--text/--gold tokens so this section
+   follows the light/dark toggle. */
 .sk-section {
-  --s-bg: #080807;
-  --s-bg2: #0d0d0b;
-  --s-text: #f4f0e6;
-  --s-muted: #a7a39a;
-  --s-gold: #e4b928;
-  --s-gold-bright: #f2c94c;
-  --s-glow: rgba(228, 185, 40, 0.18);
-  --s-border: rgba(228, 185, 40, 0.2);
-  --s-border-soft: rgba(244, 240, 230, 0.1);
+  --s-bg: var(--bg);
+  --s-bg2: var(--panel);
+  --s-text: var(--text);
+  --s-muted: var(--muted);
+  --s-gold: var(--gold);
+  --s-gold-bright: var(--gold-2);
+  --s-glow: var(--line-strong);
+  --s-border: var(--line-strong);
+  --s-border-soft: var(--line);
   --s-display: 'Sora', 'Space Grotesk', sans-serif;
   --s-mono: 'JetBrains Mono', 'DM Mono', monospace;
   background: var(--s-bg);
@@ -53,7 +55,7 @@
 .sk-filters button:hover { border-color: var(--s-gold); transform: translateY(-2px); }
 .sk-filters button.active {
   background: var(--s-gold);
-  color: #100d02;
+  color: var(--ink);
   border-color: var(--s-gold);
   font-weight: 500;
 }

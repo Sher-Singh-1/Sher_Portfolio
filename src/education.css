@@ -1,14 +1,16 @@
-/* ===== Education & Recognition — same cinematic identity ===== */
+/* ===== Education & Recognition — same cinematic identity =====
+   Colors alias the shared --bg/--text/--gold tokens so this section
+   follows the light/dark toggle. */
 .ed-section {
-  --e-bg: #080807;
-  --e-bg2: #0d0d0b;
-  --e-text: #f4f0e6;
-  --e-muted: #a7a39a;
-  --e-gold: #e4b928;
-  --e-gold-bright: #f2c94c;
-  --e-glow: rgba(228, 185, 40, 0.18);
-  --e-border: rgba(228, 185, 40, 0.2);
-  --e-border-soft: rgba(244, 240, 230, 0.1);
+  --e-bg: var(--bg);
+  --e-bg2: var(--panel);
+  --e-text: var(--text);
+  --e-muted: var(--muted);
+  --e-gold: var(--gold);
+  --e-gold-bright: var(--gold-2);
+  --e-glow: var(--line-strong);
+  --e-border: var(--line-strong);
+  --e-border-soft: var(--line);
   --e-display: 'Sora', 'Space Grotesk', sans-serif;
   --e-mono: 'JetBrains Mono', 'DM Mono', monospace;
   background: var(--e-bg);
@@ -116,7 +118,7 @@
   display: flex;
   align-items: center;
   padding: 0 16px;
-  background: linear-gradient(90deg, var(--e-bg2), #17130a);
+  background: linear-gradient(90deg, var(--e-bg2), var(--panel2));
   border: 1px solid var(--e-border-soft);
   border-top: none;
 }

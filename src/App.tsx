@@ -28,7 +28,6 @@ import { Hero } from "./components/hero/Hero";
 import { SkillsSection } from "./components/skills/SkillsSection";
 import { EducationSection } from "./components/education/EducationSection";
 import profileImage from "../data/Profile.jpeg";
-import barChartIcon from "./assets/icons3d/bar_chart.png";
 import packageIcon from "./assets/icons3d/package.png";
 import envelopeIcon from "./assets/icons3d/envelope.png";
 import {
@@ -298,7 +297,7 @@ function ProjectCard({
   );
 }
 
-function SherosVideo() {
+function ProjectVideo({ src, label }: { src: string; label: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "220px" });
   return (
@@ -311,14 +310,14 @@ function SherosVideo() {
           loop
           playsInline
           preload="metadata"
-          aria-label="SherOS product demonstration"
+          aria-label={`${label} demonstration`}
         >
-          <source src={withBase("media/sheros-demo.webm")} type="video/webm" />
-          Your browser does not support the SherOS demonstration video.
+          <source src={withBase(src)} type="video/webm" />
+          Your browser does not support the {label} demonstration video.
         </video>
       ) : (
         <div className="video-poster">
-          <Play size={22} /> SherOS demonstration loads when this section is
+          <Play size={22} /> {label} demonstration loads when this section is
           near
         </div>
       )}
@@ -388,9 +387,9 @@ function ProjectModal({
             )}
           </div>
         )}
-        {project.id === "sheros" && (
+        {project.video && (
           <div className="modal-video">
-            <SherosVideo />
+            <ProjectVideo src={project.video} label={project.title} />
           </div>
         )}
         <div className="detail-grid">
@@ -399,6 +398,12 @@ function ProjectModal({
             <p>{project.problem}</p>
             <h3>Solution</h3>
             <p>{project.solution}</p>
+            {project.architecture && (
+              <>
+                <h3>Architecture</h3>
+                <p>{project.architecture}</p>
+              </>
+            )}
           </div>
           <div>
             <h3>My contribution</h3>
@@ -434,7 +439,6 @@ function App() {
   const githubUrl = profile.social.find(
     (social) => social.label === "GitHub",
   )?.url;
-  const sherosProject = projects.find((project) => project.id === "sheros")!;
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 25 });
   const visibleProjects =
@@ -702,60 +706,6 @@ function App() {
                   Explore more on GitHub <GithubMark size={16} />
                 </a>
               )}
-            </div>
-          </div>
-        </section>
-        <section className="sheros-section">
-          <div className="wrap">
-            <motion.div {...reveal} className="sheros-heading">
-              <div>
-                <p className="overline">05 · Featured case study</p>
-                <h2>
-                  <img
-                    src={barChartIcon}
-                    alt=""
-                    className="icon-3d heading-icon"
-                  />
-                  SHEROS<span>™</span>
-                </h2>
-                <p>
-                  A cross-platform system health monitor designed to make local
-                  machine health visible, actionable, and easier to manage.
-                </p>
-              </div>
-              <button
-                className="case-link"
-                onClick={() => setSelected(sherosProject)}
-              >
-                Read the full case study <ArrowUpRight />
-              </button>
-            </motion.div>
-            <SherosVideo />
-            <div className="monitor-strip" aria-label="Illustrative monitoring activity">
-              <div className="monitor-metric"><span>CPU LOAD</span><b>42%</b><i>STABLE</i></div>
-              <div className="monitor-chart"><span>LIVE TELEMETRY</span><svg viewBox="0 0 480 92" role="img" aria-label="Animated system monitoring line chart"><path className="chart-grid" d="M0 22H480M0 46H480M0 70H480" /><polyline className="chart-line chart-line-one" points="0,63 34,52 70,61 104,31 139,45 174,40 210,59 245,22 279,35 317,27 352,51 386,42 420,58 450,28 480,37" /><polyline className="chart-line chart-line-two" points="0,75 38,68 75,73 115,56 154,65 190,60 231,74 270,50 309,59 348,46 384,64 423,54 458,67 480,59" /></svg></div>
-              <div className="monitor-metric"><span>NETWORK</span><b>ONLINE</b><i>SYNCED</i></div>
-            </div>
-            <div className="case-grid">
-              {[
-                ["The problem", sherosProject.problem],
-                ["The solution", sherosProject.solution],
-                [
-                  "Architecture",
-                  "Python and psutil collect system data; REST APIs expose it to a responsive web dashboard; SQLite retains local historical data.",
-                ],
-                ["My role", sherosProject.contribution],
-              ].map(([title, content], index) => (
-                <motion.div
-                  {...reveal}
-                  transition={{ duration: 0.5, delay: index * 0.07 }}
-                  key={title}
-                >
-                  <p className="overline">0{index + 1}</p>
-                  <h3>{title}</h3>
-                  <p>{content}</p>
-                </motion.div>
-              ))}
             </div>
           </div>
         </section>
