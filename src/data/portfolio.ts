@@ -20,7 +20,7 @@ export const profile = {
 }
 
 export const experiences = [
-  { company: 'Mirasys India Pvt. Ltd.', role: 'Jr. DevOps Engineer', duration: 'Jun 2025 — Present', tech: ['Linux', 'Docker', 'Grafana', 'Prometheus', 'Python', 'AWS', 'Shell Scripting', 'Automation', 'Deployment', 'Government', 'Enterprise Level Project Deployment'], points: ['Supported deployment, production integration, and troubleshooting for government and enterprise VMS & Video Analytics projects.', 'Worked with Linux, networking, REST APIs, service deployment, and infrastructure monitoring.', 'Contributed Python automation, YOLO-based video analytics work, and React frontend development.'] },
+  { company: 'Mirasys India Pvt. Ltd.', role: 'Jr. DevOps Engineer', duration: 'Jun 2025 — Present', tech: ['Linux', 'Docker', 'Grafana', 'Prometheus', 'Python', 'AWS', 'Shell Scripting', 'Automation', 'Deployment', 'Government', 'Enterprise Level Project Deployment', 'REST API', 'Netdata', 'Git'], points: ['Supported deployment, production integration, and troubleshooting for government and enterprise VMS & Video Analytics projects.', 'Worked with Linux, networking, REST APIs, service deployment, and infrastructure monitoring.', 'Contributed Python automation, YOLO-based video analytics work, and React frontend development.'] },
   { company: 'Mobiloitte Technologies India Pvt. Ltd.', role: 'Software Developer Intern', duration: 'Jan 2025 — Mar 2025', tech: ['React', 'JavaScript', 'HTML', 'CSS', 'Figma'], points: ['Collaborated on a dynamic e-commerce website using React, HTML, CSS, and JavaScript.', 'Built responsive, user-friendly interfaces and translated Figma designs into functional components.'] },
 ]
 
