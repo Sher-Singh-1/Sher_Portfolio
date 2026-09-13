@@ -570,7 +570,7 @@ function App() {
             <dl>
               <div>
                 <dt>Current role</dt>
-                <dd>DevOps Engineer · Mirasys India Pvt. Ltd.</dd>
+                <dd>Jr. DevOps Engineer · Mirasys India Pvt. Ltd.</dd>
               </div>
               <div>
                 <dt>Education</dt>
