@@ -559,9 +559,13 @@ function App() {
               From code to <em>reliable operations.</em>
             </h2>
             <p className="lede">
-              I’m {profile.name}, a {profile.role} at {profile.company}. I enjoy
-              building, deploying, monitoring, and improving technology that
-              works in real environments.
+              I’m {profile.name}, a {profile.role} at {profile.company},
+              passionate about building, deploying, monitoring, and
+              optimizing reliable technology for real-world environments. I
+              enjoy turning ideas and code into scalable, automated, and
+              production-ready solutions, with a strong focus on DevOps,
+              cloud technologies, automation, monitoring, AI/ML, computer
+              vision, and web development.
             </p>
             <dl>
               <div>
